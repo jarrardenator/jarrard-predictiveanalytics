@@ -84,7 +84,9 @@ print(top5comments)
 cols_part3 = ('RESPNUM','Year','RUNID','HOME','Q7ALL')
 sfo_part3 = pd.DataFrame(data=sfo_all,columns=cols_part3)
 
-sfo_part3 = sfo_part3[(sfo_part3.Q7ALL > 0) & (sfo_part3.Q7ALL < 6)]
+sfo_part3 = sfo_part3.dropna()
+sfo_part3['Q7ALL'] = sfo_part3['Q7ALL'].astype(float)
+sfo_part3 = sfo_part3[(sfo_part3.Q7ALL > 0.0) & (sfo_part3.Q7ALL < 6.0)]
 
 sfo_part3_summary = sfo_part3.groupby(['Year','HOME'])
 part3_stats = sfo_part3_summary['Q7ALL'].describe()
